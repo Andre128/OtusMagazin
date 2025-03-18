@@ -1,0 +1,5 @@
+postgres:
+  db: "mydb"
+  user: "user"
+  password: "password"
+  storageSize: "1Gi"
