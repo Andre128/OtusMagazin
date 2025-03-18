@@ -3,12 +3,12 @@ entries:
   postgres-restfulcrud:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2025-03-18T18:16:23.122051735+03:00"
+    created: "2025-03-18T18:37:00.399347185+03:00"
     description: A Helm chart for Kubernetes
     digest: 8cae5431830e942e4b3a92408e4105124600424e951589a059bcdbfd91d99f8c
     name: postgres-restfulcrud
     type: application
     urls:
-    - https://andre128.github.io/helm-restfulcrud/postgres-restfulcrud-0.1.0.tgz
+    - https://andre128.github.io/OtusMagazin/postgres-restfulcrud-0.1.0.tgz
     version: 0.1.0
-generated: "2025-03-18T18:16:23.121645235+03:00"
+generated: "2025-03-18T18:37:00.398973944+03:00"
