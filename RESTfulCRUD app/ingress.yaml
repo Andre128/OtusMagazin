@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: magazine-ingress
+  namespace: m
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: arch.homework
+    http:
+      paths:
+      - path: /health/
+        pathType: Prefix  
+        backend:
+          service:
+            name: healthcheck-services
+            port: 
+              number: 8000
+      - path: /
+        pathType: Prefix  
+        backend:
+          service:
+            name: restfulcrud-services
+            port: 
+              number: 80
