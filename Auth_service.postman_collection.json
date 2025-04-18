@@ -1,0 +1,692 @@
+{
+	"info": {
+		"_postman_id": "cb576ed4-3e8c-42f0-a547-8f83c44196cc",
+		"name": "Auth_service",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "42855977"
+	},
+	"item": [
+		{
+			"name": "register User1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const random = Math.floor(Math.random() * 100000);  ",
+							"pm.environment.set(\"User1_login\", `user1_${random}`); ",
+							"pm.environment.set(\"User1_password\", `pass_${random}`);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"login\": \"{{User1_login}}\",\n    \"password\": \"{{User1_password}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"firstname\": \"{{$randomFirstName}}\",\n    \"lastname\": \"{{$randomLastName}}\",\n    \"phone\": \"{{$randomPhoneNumber}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/users/register"
+			},
+			"response": []
+		},
+		{
+			"name": "Get profile without login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"password": "admin",
+						"username": "admin"
+					}
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-userid",
+						"value": "20681",
+						"type": "text"
+					},
+					{
+						"key": "x-user",
+						"value": "tes5",
+						"type": "text"
+					},
+					{
+						"key": "x-email",
+						"value": "Gladyce31@yahoo.com",
+						"type": "text"
+					},
+					{
+						"key": "x-first-name",
+						"value": "Breanna",
+						"type": "text"
+					},
+					{
+						"key": "x-last-name",
+						"value": "Crist",
+						"type": "text"
+					},
+					{
+						"key": "x-user-phone",
+						"value": "379-868-2005",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/user/me"
+			},
+			"response": []
+		},
+		{
+			"name": "Change Profile without login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"password": "admin",
+						"username": "admin"
+					}
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-userid",
+						"value": "20681",
+						"type": "text"
+					},
+					{
+						"key": "x-user",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "x-email",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "x-first-name",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "x-last-name",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "x-user-phone",
+						"value": "1",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"login\": \"1\",\n    \"email\": \"1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/user/me"
+			},
+			"response": []
+		},
+		{
+			"name": "Login User1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"   // var useridHeader = pm.response.headers.get('x-userid');",
+							"    pm.environment.set('useridHeader', pm.response.headers.get('x-userid'));",
+							"    pm.environment.set('session_id', pm.cookies.get('session_id'));",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"password": "admin",
+						"username": "admin"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"login\": \"{{User1_login}}\",\n    \"password\": \"{{User1_password}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/users/login"
+			},
+			"response": []
+		},
+		{
+			"name": "Change Profile User1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const random = Math.floor(Math.random() * 100000);  ",
+							"pm.environment.set(\"User1_change_email\", `user1_email_${random}`); ",
+							"pm.environment.set(\"User1_change_phone\", `User1_phone_${random}`);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"password": "admin",
+						"username": "admin"
+					}
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "x-userid",
+						"value": "{{useridHeader}}",
+						"type": "text"
+					},
+					{
+						"key": "x-user",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "x-email",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "x-first-name",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "x-last-name",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "x-user-phone",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "Cookie",
+						"value": "session_id = {{session_id}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"{{User1_change_email}}\",\n    \"phone\": \"{{User1_change_phone}}\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/user/me"
+			},
+			"response": []
+		},
+		{
+			"name": "Check Profile User1 after Change",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"password": "admin",
+						"username": "admin"
+					}
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-userid",
+						"value": "{{useridHeader}}",
+						"type": "text"
+					},
+					{
+						"key": "x-user",
+						"value": "tes5",
+						"type": "text"
+					},
+					{
+						"key": "x-email",
+						"value": "Gladyce31@yahoo.com",
+						"type": "text"
+					},
+					{
+						"key": "x-first-name",
+						"value": "Breanna",
+						"type": "text"
+					},
+					{
+						"key": "x-last-name",
+						"value": "Crist",
+						"type": "text"
+					},
+					{
+						"key": "x-user-phone",
+						"value": "379-868-2005",
+						"type": "text"
+					},
+					{
+						"key": "Cookie",
+						"value": "session_id = {{session_id}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/user/me"
+			},
+			"response": []
+		},
+		{
+			"name": "logout",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": "{{baseUrl}}/users/signin"
+			},
+			"response": []
+		},
+		{
+			"name": "register User2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const random = Math.floor(Math.random() * 100000);  ",
+							"pm.environment.set(\"User2_login\", `user2_${random}`); ",
+							"pm.environment.set(\"User2_password\", `pass_${random}`);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"login\": \"{{User2_login}}\",\n    \"password\": \"{{User2_password}}\",\n    \"email\": \"{{$randomEmail}}\",\n    \"firstname\": \"{{$randomFirstName}}\",\n    \"lastname\": \"{{$randomLastName}}\",\n    \"phone\": \"{{$randomPhoneNumber}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/users/register"
+			},
+			"response": []
+		},
+		{
+			"name": "Login User2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"   // var useridHeader = pm.response.headers.get('x-userid');",
+							"    pm.environment.set('useridHeader1', pm.response.headers.get('x-userid'));",
+							"    pm.environment.set('session_id1', pm.cookies.get('session_id'));",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"password": "admin",
+						"username": "admin"
+					}
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"login\": \"{{User2_login}}\",\n    \"password\": \"{{User2_password}}\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/users/login"
+			},
+			"response": []
+		},
+		{
+			"name": "Try Accessing User 1 Profile (403)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": {
+						"password": "admin",
+						"username": "admin"
+					}
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-userid",
+						"value": "{{useridHeader}}",
+						"type": "text"
+					},
+					{
+						"key": "x-user",
+						"value": "tes5",
+						"type": "text"
+					},
+					{
+						"key": "x-email",
+						"value": "Gladyce31@yahoo.com",
+						"type": "text"
+					},
+					{
+						"key": "x-first-name",
+						"value": "Breanna",
+						"type": "text"
+					},
+					{
+						"key": "x-last-name",
+						"value": "Crist",
+						"type": "text"
+					},
+					{
+						"key": "x-user-phone",
+						"value": "379-868-2005",
+						"type": "text"
+					},
+					{
+						"key": "Cookie",
+						"value": "session_id = {{session_id1}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "{{baseUrl}}/user/me"
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "arch.homework",
+			"type": "string"
+		},
+		{
+			"key": "User1",
+			"value": "",
+			"type": "string",
+			"disabled": true
+		}
+	]
+}
